@@ -77,4 +77,20 @@ router.get("/",async(req,res)=>{
     }
 })
 
+router.delete("/delete/:id", async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            status: "Success",
+            message: "Post deleted successfully",
+            post,
+        });
+    } catch (e) {
+        res.status(500).json({
+            status: "Failed",
+            message: e.message,
+        });
+    }
+});
+
 module.exports = router;
